@@ -1,16 +1,20 @@
-/**
- * @file Bootstrap express.js server
- * @author Fikri Rahmat Nurhidayat
- */
-
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 const router = require("../config/routes");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const publicDir = path.join(__dirname, "../public");
 const viewsDir = path.join(__dirname, "./views");
 const app = express();
+
+/** Install CORS */
+app.use(cors());
+
+/** Install Body Parser */
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /** Install request logger */
 app.use(morgan("dev"));

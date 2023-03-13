@@ -1,6 +1,6 @@
 const express = require("express");
 const controllers = require("../app/controllers");
-
+const middlewares = require("../app/middlewares");
 const appRouter = express.Router();
 const apiRouter = express.Router();
 
@@ -11,23 +11,19 @@ appRouter.get("/", controllers.main.index);
  * TODO: Implement your own API
  *       implementations
  */
-apiRouter.get("/api/v1/posts", controllers.api.v1.post.list);
-apiRouter.post("/api/v1/posts", controllers.api.v1.post.create);
-apiRouter.put(
-  "/api/v1/posts/:id",
-  controllers.api.v1.post.setPost,
-  controllers.api.v1.post.update
-);
-apiRouter.get(
-  "/api/v1/posts/:id",
-  controllers.api.v1.post.setPost,
-  controllers.api.v1.post.show
-);
-apiRouter.delete(
-  "/api/v1/posts/:id",
-  controllers.api.v1.post.setPost,
-  controllers.api.v1.post.destroy
-);
+/** AUTH */
+apiRouter.post("/user/register", controllers.api.v1.authControllers.register);
+apiRouter.post("/user/login", controllers.api.v1.authControllers.login);
+
+
+/** EMPLOYEE */
+// 1. Request Overtime
+apiRouter.post("/overtime",
+  middlewares.tokenChecker,
+  controllers.api.v1.overtimeControllers.reqOvertime);
+
+
+/** HR */
 
 /**
  * TODO: Delete this, this is just a demonstration of

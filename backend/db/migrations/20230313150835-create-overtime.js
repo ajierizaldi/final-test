@@ -2,15 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Permissions', {
-      permissionID: {
+    await queryInterface.createTable('overtimes', {
+      overtimeID: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      permission: {
-        type: Sequelize.STRING
+      userID: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'userID'
+        }
+      },
+      dateNow: {
+        type: Sequelize.DATE
+      },
+      reason: {
+        type: Sequelize.TEXT
+      },
+      status: {
+        type: Sequelize.ENUM('pending', 'approved', 'rejected')
       },
       createdAt: {
         allowNull: false,
@@ -23,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Permissions');
+    await queryInterface.dropTable('overtimes');
   }
 };

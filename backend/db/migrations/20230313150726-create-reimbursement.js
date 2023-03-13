@@ -2,18 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('RolePermissions', {
-      rolePermissionID: {
+    await queryInterface.createTable('reimbursements', {
+      reimbursementID: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      roleID: {
+      userID: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'users',
+          key: 'userID',
+        }
+      },
+      dateNow: {
+        type: Sequelize.DATE
+      },
+      balance: {
         type: Sequelize.INTEGER
       },
-      permissionID: {
-        type: Sequelize.INTEGER
+      description: {
+        type: Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.ENUM('pending', 'approved', 'rejected')
       },
       createdAt: {
         allowNull: false,
@@ -26,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('RolePermissions');
+    await queryInterface.dropTable('reimbursements');
   }
 };
