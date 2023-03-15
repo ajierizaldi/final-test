@@ -1,31 +1,25 @@
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
 
-const sendEmail = () => {
-    return new Promise((resolve, reject) => {
-        let transporter = nodemailer.createTransport({
-            service:'gmail',
-            auth:{
-                user:'fadlifirdass@gmail.com',
-                //edited
-                pass:''
-            }
-        })
-    
-        const mail_configs = {
-            from:'fadlifirdass@gmail.com',
-            to:'fadli99xyz@gmail.com',
-            subject:'test koding 101 dans email',
-            text: "exercise dans nodemailer"
-        }
-        transporter.sendMail(mail_configs, function(error, info){
-            if(error){
-                console.log(error)
-                return reject({message: `ada error!`})
-            }
-            return resolve({message: "Email sent success!"})
-        })
-    })
-}
+const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+        user: 'eino.ernser68@ethereal.email',
+        pass: 'Y56xkQ2dfShMHKr7kq'
+    }
+});
 
+const mailOptions = {
+    from: 'eino.ernser68@ethereal.email',
+    to: 'ajiemuhammad2@gmail.com',
+    subject: 'Test email',
+    text: 'This is a test email sent using nodemailer!'
+};
 
-module.exports = sendEmail
+transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Email sent: ' + info.response);
+    }
+});

@@ -4,10 +4,18 @@ const { getAbsensi, createAbsensi, getAbsensiById, historyAbsensi } = require('.
 const { VerifyUser } = require('../middleware/AuthUser')
 
 
-router.get('/absensi', VerifyUser, getAbsensi)
-router.get('/historyabsensi', VerifyUser, historyAbsensi)
-router.get('/absensi/:id', VerifyUser, getAbsensiById)
-router.post('/absensi', VerifyUser, createAbsensi)
+router.get('/absensi',
+    VerifyUser,
+    getAbsensi)
+router.get('/historyabsensi',
+    VerifyUser,
+    historyAbsensi)
+router.get('/absensi/:id',
+    VerifyUser,
+    getAbsensiById)
+router.post('/absensi',
+    VerifyUser,
+    createAbsensi)
 
 
 
