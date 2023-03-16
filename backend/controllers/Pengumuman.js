@@ -20,5 +20,22 @@ module.exports = {
         } catch (error) {
             res.status(400).json({ msg: error.message })
         }
+    },
+    updatePengumuman: async (req, res) => {
+        const { subject, description } = req.body
+        try {
+            await Pengumuman.update({
+                subject: subject,
+                description: description
+            }, {
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.status(201).json({ msg: "Announcement Updated !" })
+        } catch (error) {
+            res.status(400).json({ msg: error.message })
+        }
+
     }
 }

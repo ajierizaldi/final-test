@@ -1,58 +1,58 @@
-const {Sequelize} = require("sequelize")
+const { Sequelize } = require("sequelize")
 const db = require('../config/database')
 const Users = require('./UserModel')
 
 
-const {DataTypes} = Sequelize;
+const { DataTypes } = Sequelize;
 
-const Product = db.define('product',{
-    uuid:{
+const Product = db.define('product', {
+    uuid: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
-        validate : {
-            notEmpty:true
+        validate: {
+            notEmpty: true
         }
     },
-    name:{
+    name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate : {
-            notEmpty:true
+        validate: {
+            notEmpty: true
         }
     },
-    price:{
+    price: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate : {
-            notEmpty:true
+        validate: {
+            notEmpty: true
         }
     },
-    status:{
+    status: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate : {
-            notEmpty:true
+        validate: {
+            notEmpty: true
         }
     },
-    userId:{
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validate : {
-            notEmpty:true
+        validate: {
+            notEmpty: true
         }
     }
-},{
-    freezeTableName : true
+}, {
+    freezeTableName: true
 })
 
 Users.hasMany(Product)
-Product.belongsTo(Users, {foreignKey: 'userId'})
+Product.belongsTo(Users, { foreignKey: 'userId' })
 
 
 module.exports = Product;
 
-(async()=>{
+(async () => {
     db.sync()
 })()
 
